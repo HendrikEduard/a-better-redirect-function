@@ -21,8 +21,6 @@
 * SOFTWARE.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-<?php
-
 class Redirect {
 
   public static function to($destination = null) {
