@@ -21,17 +21,36 @@
 * SOFTWARE.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-function redirect_to($destination) {
-  if (!headers_sent()){
-    header('Location: '.$destination);
-    exit();
-  } else {
-    echo '<script type="text/javascript">';
-    echo 'window.location.href="'.$destination.'";';
-    echo '</script>';
-    echo '<noscript>';
-    echo '<meta http-equiv="refresh" content="0;url='.$destination.'" />';
-    echo '</noscript>'; exit;
-  }
-}  
+<?php
 
+class Redirect {
+
+  public static function to($destination = null) {
+    if (!headers_sent()) {
+      if($destination) {
+        if(is_numeric($destination)) {
+          switch($destination) {
+            case 404:
+              header('HTTP/1.0 404 Not Found');
+              include 'includes/errors/404.php';
+              exit();
+            break;
+          }
+        }
+        header('Location: ' . $destination);
+        exit();
+      } else {
+        echo '<script">';
+        echo 'window.location.href="'.$destination.'";';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url='.$destination.'">';
+        echo '</noscript>'; 
+        exit;
+      }
+    }
+  }
+} 
+
+// Usage
+// Redirect::to('page_name.php');
